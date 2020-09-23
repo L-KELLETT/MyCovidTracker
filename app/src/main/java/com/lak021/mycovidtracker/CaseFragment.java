@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.text.format.DateFormat;
+import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
@@ -44,12 +45,13 @@ public class CaseFragment extends Fragment {
     private Case mCase;
     private EditText mTitleField;
     private Button mDateButton;
-    private CheckBox mSolvedCheckBox;
+    private CheckBox mWasCloseContact;
     private Button mReportButton;
-    private Button mSuspectButton;
+    private Button mContactsButton;
     private ImageButton mPhotoButton;
     private ImageView mPhotoView;
     private File mPhotoFile;
+    private EditText mDurationButton;
 
 
     public static CaseFragment newInstance(UUID caseId) {
@@ -103,9 +105,9 @@ public class CaseFragment extends Fragment {
                 dialog.show(manager, DIALOG_DATE);
             }
         });
-        mSolvedCheckBox = (CheckBox) v.findViewById(R.id.case_solved);
-        mSolvedCheckBox.setChecked(mCase.isWasCloseContact());
-        mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mWasCloseContact = (CheckBox) v.findViewById(R.id.case_solved);
+        mWasCloseContact.setChecked(mCase.isWasCloseContact());
+        mWasCloseContact.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mCase.setWasCloseContact(isChecked);
@@ -126,23 +128,44 @@ public class CaseFragment extends Fragment {
         });
 
         final Intent pickContact = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-        //pickContact.addCategory(Intent.CATEGORY_HOME); //used for testing a disabled set suspect button
-        mSuspectButton = (Button) v.findViewById(R.id.choose_suspect);
-        mSuspectButton.setOnClickListener(new View.OnClickListener() {
+
+        mContactsButton = (Button) v.findViewById(R.id.choose_suspect);
+        if (mCase.getContacts() == "null" || mCase.getContacts() == null) {
+            mContactsButton.setText("Select Contact");
+        } else {
+            mContactsButton.setText("Contact: " + mCase.getContacts());
+        }
+        mContactsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivityForResult(pickContact, REQUEST_CONTACT);
+
             }
         });
 
 
 
 
-
+        mDurationButton = (EditText) v.findViewById(R.id.duration_text);
+        mDurationButton.setText(mCase.getDuration());
+        mDurationButton.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //This is intentionally blank
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int count, int after) {
+                mCase.setDuration(s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //This is also intentionally blank
+            }
+        });
 
         PackageManager packageManager = getActivity().getPackageManager();
         if (packageManager.resolveActivity(pickContact,
                 PackageManager.MATCH_DEFAULT_ONLY) == null) {
-            mSuspectButton.setEnabled(false);
+            mContactsButton.setEnabled(false);
         }
 
         mPhotoButton = (ImageButton) v.findViewById(R.id.case_camera);
@@ -167,7 +190,6 @@ public class CaseFragment extends Fragment {
                 startActivityForResult(captureImage, REQUEST_PHOTO);
             }
         });
-
         mPhotoView = (ImageView) v.findViewById(R.id.case_photo);
         updatePhotoView();
         return v;
@@ -221,7 +243,7 @@ public class CaseFragment extends Fragment {
                 c.moveToFirst();
                 String suspect = c.getString(0);
                 mCase.setContacts(suspect);
-                mSuspectButton.setText(suspect);
+                mContactsButton.setText("Contact: " + suspect);
             } finally {
                 c.close();
             }
@@ -237,10 +259,11 @@ public class CaseFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.delete_crime:
+            case R.id.delete_case:
                 Case aCase = this.mCase;
                 CaseFolder.get(getActivity()).deleteCase(aCase);
                 getActivity().finish();
+                Toast.makeText(getActivity(), "Case Deleted", Toast.LENGTH_SHORT).show();
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -261,14 +284,14 @@ public class CaseFragment extends Fragment {
         String dateFormat = "EEE, MMM dd";
         String dateString = DateFormat.format(dateFormat, mCase.getDate()).toString();
 
-        String suspect = mCase.getContacts();
-        if (suspect == null) {
-            suspect = getString(R.string.case_report_no_suspect);
+        String contacts = " " + mCase.getContacts();
+        if (contacts == null) {
+            contacts = getString(R.string.case_report_without_friend);
         } else {
-            suspect = getString(R.string.case_report_suspect, suspect);
+            contacts = getString(R.string.case_report_with_friend) + contacts;
         }
         String report = getString(R.string.case_report,
-                mCase.getTitle(), dateString, solvedString, suspect);
+                mCase.getTitle(), dateString, solvedString, contacts);
         return report;
     }
 

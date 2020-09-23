@@ -114,6 +114,7 @@ public class CaseFolder {
         values.put(CaseTable.Cols.DATE, aCase.getDate().getTime());
         values.put(CaseTable.Cols.CLOSE, aCase.isWasCloseContact() ? 1 : 0);
         values.put(CaseTable.Cols.CONTACT, aCase.getContacts());
+        values.put(CaseTable.Cols.DURATION, aCase.getDuration());
         return values;
     }
 }

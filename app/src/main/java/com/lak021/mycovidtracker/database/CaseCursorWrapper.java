@@ -20,12 +20,14 @@ public class CaseCursorWrapper extends CursorWrapper {
         long date = getLong(getColumnIndex(CaseTable.Cols.DATE));
         int closeContact = getInt(getColumnIndex(CaseTable.Cols.CLOSE));
         String contacts = getString(getColumnIndex(CaseTable.Cols.CONTACT));
+        String duration = getString(getColumnIndex(CaseTable.Cols.DURATION));
 
         Case aCase = new Case(UUID.fromString(uuidString));
         aCase.setTitle(title);
         aCase.setDate(new Date(date));
         aCase.setWasCloseContact(closeContact != 0);
         aCase.setContacts(contacts);
+        aCase.setDuration(duration);
 
         return aCase;
     }

@@ -22,11 +22,11 @@ public class CasePagerActivity extends AppCompatActivity {
     private static final int REQUEST_ERROR = 0;
     private ViewPager mViewPager;
     private List<Case> mCases;
-    private static final String EXTRA_CRIME_ID = "com.lak021.criminalintent.crime_id";
+    private static final String EXTRA_CASE_ID = "com.lak021.mycovidtracker.case_id";
 
-    public static Intent newIntent(Context packageContext, UUID crimeId) {
+    public static Intent newIntent(Context packageContext, UUID caseId) {
         Intent intent = new Intent(packageContext, CasePagerActivity.class);
-        intent.putExtra(EXTRA_CRIME_ID, crimeId);
+        intent.putExtra(EXTRA_CASE_ID, caseId);
         return intent;
     }
 
@@ -35,7 +35,7 @@ public class CasePagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_case_pager);
 
-        UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CASE_ID);
 
         mViewPager = (ViewPager) findViewById(R.id.case_view_pager);
         mCases = CaseFolder.get(this).getCases();

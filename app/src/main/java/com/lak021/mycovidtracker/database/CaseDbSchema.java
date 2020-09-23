@@ -9,6 +9,8 @@ public class CaseDbSchema {
             public static final String DATE = "date";
             public static final String CLOSE = "hadcontact";
             public static final String CONTACT = "contacts";
+            public static final String DURATION = "duration";
+
         }
     }
 }

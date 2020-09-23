@@ -9,6 +9,7 @@ public class Case {
     private Date mDate;
     private boolean mWasCloseContact;
     private String mContacts;
+    private String mDuration;
     private double mLatitude;
     private double mLongitude;
 
@@ -58,6 +59,14 @@ public class Case {
 
     public String getPhotoFilename() {
         return "IMG_" + getID().toString() + ".jpg";
+    }
+
+    public String getDuration() {
+        return mDuration;
+    }
+
+    public void setDuration(String duration) {
+        mDuration = duration;
     }
 
     public double getLatitude() {

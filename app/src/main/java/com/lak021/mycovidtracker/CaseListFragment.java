@@ -77,7 +77,7 @@ public class CaseListFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.new_crime:
+            case R.id.new_case:
                 Case aCase = new Case();
                 CaseFolder.get(getActivity()).addCase(aCase);
                 Intent intent = CasePagerActivity.newIntent(getActivity(), aCase.getID());
@@ -91,12 +91,14 @@ public class CaseListFragment extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         CaseFolder.get(getActivity()).deleteCases();
                         updateUI();
+                        Toast.makeText(getActivity(), "All Cases Cleared!", Toast.LENGTH_SHORT).show();
+
                     }
                 });
                 builder.setNegativeButton(R.string.cancel_wipe_cases, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //Cancel the dialog, no action
+                        Toast.makeText(getActivity(), "Clear Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
                 AlertDialog dialog = builder.create();

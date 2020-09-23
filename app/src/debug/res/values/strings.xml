@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">MyCovidTracker</string>
-    <string name="case_title_hint">Enter a title for the aCase.</string>
+    <string name="case_title_hint">Enter a title for the Case.</string>
     <string name="case_title_label">Title</string>
     <string name="case_details_label">Details</string>
     <string name="case_solved_label">Solved</string>
-    <string name="date_picker_title">Date of aCase:</string>
+    <string name="date_picker_title">Date of Case:</string>
     <string name="new_case">New Case</string>
     <string name="delete_case">Delete Case</string>
     <string name="subtitle_format">%1$d Cases</string>
@@ -14,14 +14,16 @@
     <string name="wipe_cases">Are you sure you want to clear all existing cases?</string>
     <string name="confirm_wipe_cases">Clear all</string>
     <string name="cancel_wipe_cases">Cancel</string>
-    <string name="case_report">%1$s!
-    The Crime was discovered on %2$s. %3$s, and %4$s
+    <string name="case_report">The name of the location was %1$s. It was visited on %2$s. %3$s, and %4$s
     </string>
-    <string name="case_report_solved">The case is solved</string>
-    <string name="case_report_unsolved">The case is not solved</string>
-    <string name="case_report_no_suspect">there is no suspect.</string>
-    <string name="case_report_suspect">the suspect is %s.</string>
+    <string name="case_report_solved">there was close contact</string>
+    <string name="case_report_unsolved">there was no close contact</string>
+    <string name="case_report_without_friend">there was no one else with me</string>
+    <string name="case_report_with_friend">I was with</string>
     <string name="case_report_subject">MyCovidTracker Contact Report</string>
-    <string name="send_report">Send aCase report via</string>
+    <string name="send_report">Send Case report via</string>
     <string name="title_activity_maps">Map</string>
+    <string name="duration_text_label">Visit Duration</string>
+    <string name="duration_text_hint">Enter the duration of the visit.</string>
+
 </resources>
