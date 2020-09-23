@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/new_crime"
+        android:icon="@drawable/ic_menu_add"
+        android:title="@string/new_case"
+        app:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/wipe_cases"
+        android:icon="@drawable/ic_menu_wipedelete"
+        android:title="@string/wipe_cases_menu"
+        app:showAsAction="ifRoom"/>
+</menu>

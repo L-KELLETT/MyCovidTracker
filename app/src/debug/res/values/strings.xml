@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">MyCovidTracker</string>
+    <string name="case_title_hint">Enter a title for the aCase.</string>
+    <string name="case_title_label">Title</string>
+    <string name="case_details_label">Details</string>
+    <string name="case_solved_label">Solved</string>
+    <string name="date_picker_title">Date of aCase:</string>
+    <string name="new_case">New Case</string>
+    <string name="delete_case">Delete Case</string>
+    <string name="subtitle_format">%1$d Cases</string>
+    <string name="wipe_cases_menu">Clear Cases</string>
+    <string name="choose_suspect">Choose Suspect</string>
+    <string name="send_case_report">Send Case Report</string>
+    <string name="wipe_cases">Are you sure you want to clear all existing cases?</string>
+    <string name="confirm_wipe_cases">Clear all</string>
+    <string name="cancel_wipe_cases">Cancel</string>
+    <string name="case_report">%1$s!
+    The Crime was discovered on %2$s. %3$s, and %4$s
+    </string>
+    <string name="case_report_solved">The case is solved</string>
+    <string name="case_report_unsolved">The case is not solved</string>
+    <string name="case_report_no_suspect">there is no suspect.</string>
+    <string name="case_report_suspect">the suspect is %s.</string>
+    <string name="case_report_subject">MyCovidTracker Contact Report</string>
+    <string name="send_report">Send aCase report via</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
