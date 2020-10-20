@@ -10,7 +10,8 @@ public class CaseDbSchema {
             public static final String CLOSE = "hadcontact";
             public static final String CONTACT = "contacts";
             public static final String DURATION = "duration";
-
+            public static final String LATITUDE = "latitude";
+            public static final String LONGITUDE = "longitude";
         }
     }
 }

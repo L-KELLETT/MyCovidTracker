@@ -21,6 +21,8 @@ public class CaseCursorWrapper extends CursorWrapper {
         int closeContact = getInt(getColumnIndex(CaseTable.Cols.CLOSE));
         String contacts = getString(getColumnIndex(CaseTable.Cols.CONTACT));
         String duration = getString(getColumnIndex(CaseTable.Cols.DURATION));
+        double latitude = getDouble(getColumnIndex(CaseTable.Cols.LATITUDE));
+        double longitude = getDouble(getColumnIndex(CaseTable.Cols.LONGITUDE));
 
         Case aCase = new Case(UUID.fromString(uuidString));
         aCase.setTitle(title);
@@ -28,6 +30,8 @@ public class CaseCursorWrapper extends CursorWrapper {
         aCase.setWasCloseContact(closeContact != 0);
         aCase.setContacts(contacts);
         aCase.setDuration(duration);
+        aCase.setLatitude(latitude);
+        aCase.setLongitude(longitude);
 
         return aCase;
     }

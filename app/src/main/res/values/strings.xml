@@ -3,7 +3,7 @@
     <string name="case_title_hint">Enter a title for the Case.</string>
     <string name="case_title_label">Title</string>
     <string name="case_details_label">Details</string>
-    <string name="case_solved_label">Solved</string>
+    <string name="case_close_contact_label">Close Contact?</string>
     <string name="date_picker_title">Date of Case:</string>
     <string name="new_case">New Case</string>
     <string name="delete_case">Delete Case</string>
@@ -25,5 +25,8 @@
     <string name="title_activity_maps">Map</string>
     <string name="duration_text_label">Visit Duration</string>
     <string name="duration_text_hint">Enter the duration of the visit.</string>
-
+    <string name="LatLong_default_text">Press the location button to get location.</string>
+    <string name="location_button_text">Location</string>
+    <string name="caselist_view_date">Date of Case</string>
+    <string name="caselist_view_location">Case Location</string>
 </resources>

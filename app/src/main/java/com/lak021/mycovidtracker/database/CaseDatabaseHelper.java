@@ -23,7 +23,9 @@ public class CaseDatabaseHelper extends SQLiteOpenHelper {
                 CaseTable.Cols.DATE + ", " +
                 CaseTable.Cols.CLOSE + ", " +
                 CaseTable.Cols.CONTACT + ", " +
-                CaseTable.Cols.DURATION +
+                CaseTable.Cols.DURATION + ", " +
+                CaseTable.Cols.LATITUDE + ", " +
+                CaseTable.Cols.LONGITUDE +
                 ")"
         );
     }

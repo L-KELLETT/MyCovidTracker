@@ -35,7 +35,7 @@ public class CasePagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_case_pager);
 
-        UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CASE_ID);
+        UUID caseId = (UUID) getIntent().getSerializableExtra(EXTRA_CASE_ID);
 
         mViewPager = (ViewPager) findViewById(R.id.case_view_pager);
         mCases = CaseFolder.get(this).getCases();
@@ -53,7 +53,7 @@ public class CasePagerActivity extends AppCompatActivity {
         });
 
         for (int i = 0; i < mCases.size(); i++) {
-            if (mCases.get(i).getID().equals(crimeId)) {
+            if (mCases.get(i).getID().equals(caseId)) {
                 mViewPager.setCurrentItem(i);
                 break;
             }

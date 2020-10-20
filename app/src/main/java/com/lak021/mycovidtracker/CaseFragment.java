@@ -1,17 +1,21 @@
 package com.lak021.mycovidtracker;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,11 +29,23 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.text.format.DateFormat;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+//import com.google.android.gms.internal;
 
 import java.io.File;
 import java.util.Date;
@@ -39,9 +55,11 @@ import java.util.UUID;
 public class CaseFragment extends Fragment {
     private static final String ARG_CASE_ID = "case_id";
     private static final String DIALOG_DATE = "DialogDate";
+
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_CONTACT = 1;
     private static final int REQUEST_PHOTO = 2;
+    private static final int REQUEST_LOCATION = 3;
     private Case mCase;
     private EditText mTitleField;
     private Button mDateButton;
@@ -52,6 +70,10 @@ public class CaseFragment extends Fragment {
     private ImageView mPhotoView;
     private File mPhotoFile;
     private EditText mDurationButton;
+    private Button mLocationButton;
+    private TextView mLatLongText;
+    private GoogleApiClient mClient;
+
 
 
     public static CaseFragment newInstance(UUID caseId) {
@@ -69,11 +91,48 @@ public class CaseFragment extends Fragment {
         mCase = CaseFolder.get(getActivity()).getCase(caseId);
         mPhotoFile = CaseFolder.get(getActivity()).getPhotoFile(mCase);
         setHasOptionsMenu(true);
+        mClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API)
+                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                    @Override
+                    public void onConnected(@Nullable Bundle bundle) {
+                        LocationRequest request = LocationRequest.create();
+                        request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                        request.setNumUpdates(5);
+                        request.setInterval(5);
+                        LocationRequest locationRequest = LocationRequest.create();
+                        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                                .addLocationRequest(locationRequest);
+                        builder.setAlwaysShow(true);
+
+
+                        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED) {
+                            return;
+                        }
+                        LocationServices.FusedLocationApi.requestLocationUpdates(mClient, request, new LocationListener() {
+                            @Override
+                            public void onLocationChanged(Location location) {
+                                Log.i("Location", "Got a fix: " + location);
+                            }
+                        });
+                    }
+                    @Override
+                    public void onConnectionSuspended(int i) { }
+                })
+        .build();
 
     }
 
-
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        mClient.connect();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        mClient.disconnect();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -126,6 +185,20 @@ public class CaseFragment extends Fragment {
                 startActivity(i);
             }
         });
+
+        mLocationButton = (Button) v.findViewById(R.id.get_location);
+        mLocationButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), MapsActivity.class);
+                startActivityForResult(i, REQUEST_LOCATION);
+            }
+        });
+        mLatLongText = (TextView) v.findViewById(R.id.display_longlat);
+        if (mCase.getLatitude() == 0) {
+        } else {
+            mLatLongText.setText(mCase.getLatitude() + ", " + mCase.getLongitude());
+        }
+
 
         final Intent pickContact = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
 
@@ -254,6 +327,12 @@ public class CaseFragment extends Fragment {
             getActivity().revokeUriPermission(uri,
                     Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             updatePhotoView();
+        } else if (requestCode == REQUEST_LOCATION) {
+            double lat = data.getDoubleExtra("lat", 0);
+            double lng = data.getDoubleExtra("long", 0);
+            mCase.setLatitude(lat);
+            mCase.setLongitude(lng);
+            mLatLongText.setText(mCase.getLatitude() + ", " + mCase.getLongitude());
         }
     }
     @Override

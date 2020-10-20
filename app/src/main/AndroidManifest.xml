@@ -8,15 +8,14 @@
          location permissions for the "MyLocation" functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -36,7 +35,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name="com.lak021.mycovidtracker.CaseListActivity">
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
+        <activity android:name=".CaseListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,8 +46,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.lak021.mycovidtracker.CasePagerActivity"
-            android:parentActivityName="com.lak021.mycovidtracker.CaseListActivity"/>
+            android:name=".CasePagerActivity"
+            android:parentActivityName=".CaseListActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -56,6 +58,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/files" />
         </provider>
+        <service
+            android:name=".MapsActivity"
+            android:foregroundServiceType="location"
+            />
     </application>
 
 </manifest>

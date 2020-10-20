@@ -7,23 +7,23 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/crime_title"
+        android:id="@+id/case_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Title"
+        android:text="@string/case_title_label"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/crime_solved"
+        app:layout_constraintEnd_toStartOf="@+id/case_close_contact"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/crime_date"
+        android:id="@+id/case_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -31,13 +31,28 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Crime Date"
-        app:layout_constraintEnd_toStartOf="@+id/crime_solved"
+        android:layout_marginBottom="2dp"
+        android:text="@string/caselist_view_date"
+        app:layout_constraintBottom_toTopOf="@+id/case_location"
+        app:layout_constraintEnd_toStartOf="@+id/case_close_contact"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/crime_title" />
+        app:layout_constraintTop_toBottomOf="@+id/case_title" />
+
+    <TextView
+        android:id="@+id/case_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="6dp"
+        android:text="@string/caselist_view_location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/case_date" />
 
     <ImageView
-        android:id="@+id/crime_solved"
+        android:id="@+id/case_close_contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -47,5 +62,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.555"
-        app:srcCompat="@drawable/ic_solved" />
+        app:srcCompat="@drawable/ic_caution" />
 </androidx.constraintlayout.widget.ConstraintLayout>
