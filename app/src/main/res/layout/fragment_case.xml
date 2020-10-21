@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <CheckBox
-        android:id="@+id/case_solved"
+        android:id="@+id/case_close_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/case_close_contact_label"/>
@@ -78,10 +78,10 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/choose_suspect"
+        android:id="@+id/choose_contacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/choose_suspect" />
+        android:text="@string/choose_contacts" />
 
     <Button
         android:id="@+id/case_report"

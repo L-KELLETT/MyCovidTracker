@@ -9,7 +9,7 @@
     <string name="delete_case">Delete Case</string>
     <string name="subtitle_format">%1$d Cases</string>
     <string name="wipe_cases_menu">Clear Cases</string>
-    <string name="choose_suspect">Choose Suspect</string>
+    <string name="choose_contacts">Choose Contact</string>
     <string name="send_case_report">Send Case Report</string>
     <string name="wipe_cases">Are you sure you want to clear all existing cases?</string>
     <string name="confirm_wipe_cases">Clear all</string>

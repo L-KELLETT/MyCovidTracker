@@ -51,7 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-                /**new AlertDialog.Builder(this)
+                new AlertDialog.Builder(this)
                         .setTitle("Hey You!")
                         .setMessage("I need Permission Rite NOW")
                         .setPositiveButton("Okies", new DialogInterface.OnClickListener() {
@@ -65,16 +65,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         })
                         .create()
                         .show();
-                 **/
+
                 return;
         } else {
-            Log.i("Location","Permission Granted");
+            Log.i("Location", "Permission Granted");
         }
-
-
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-
 
         lat = location.getLatitude();
         lng = location.getLongitude();

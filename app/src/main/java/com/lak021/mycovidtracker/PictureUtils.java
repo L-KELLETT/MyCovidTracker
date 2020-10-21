@@ -13,7 +13,6 @@ public class PictureUtils {
         return getScaledBitmap(path, size.x, size.y);
     }
 
-
     public static Bitmap getScaledBitmap(String path, int destWidth, int destHeight) {
         System.out.println();
 // Read in the dimensions of the image on disk

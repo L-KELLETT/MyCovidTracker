@@ -2,7 +2,6 @@ package com.lak021.mycovidtracker;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -33,8 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
@@ -104,7 +101,6 @@ public class CaseFragment extends Fragment {
                                 .addLocationRequest(locationRequest);
                         builder.setAlwaysShow(true);
 
-
                         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                             != PackageManager.PERMISSION_GRANTED) {
                             return;
@@ -164,7 +160,7 @@ public class CaseFragment extends Fragment {
                 dialog.show(manager, DIALOG_DATE);
             }
         });
-        mWasCloseContact = (CheckBox) v.findViewById(R.id.case_solved);
+        mWasCloseContact = (CheckBox) v.findViewById(R.id.case_close_contact);
         mWasCloseContact.setChecked(mCase.isWasCloseContact());
         mWasCloseContact.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -185,7 +181,6 @@ public class CaseFragment extends Fragment {
                 startActivity(i);
             }
         });
-
         mLocationButton = (Button) v.findViewById(R.id.get_location);
         mLocationButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -199,10 +194,9 @@ public class CaseFragment extends Fragment {
             mLatLongText.setText(mCase.getLatitude() + ", " + mCase.getLongitude());
         }
 
-
         final Intent pickContact = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
 
-        mContactsButton = (Button) v.findViewById(R.id.choose_suspect);
+        mContactsButton = (Button) v.findViewById(R.id.choose_contacts);
         if (mCase.getContacts() == "null" || mCase.getContacts() == null) {
             mContactsButton.setText("Select Contact");
         } else {
@@ -214,9 +208,6 @@ public class CaseFragment extends Fragment {
 
             }
         });
-
-
-
 
         mDurationButton = (EditText) v.findViewById(R.id.duration_text);
         mDurationButton.setText(mCase.getDuration());
@@ -274,17 +265,13 @@ public class CaseFragment extends Fragment {
                 .updateCase(mCase);
     }
 
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_case, menu);
     }
 
-    public void findLocation() {
-
-    }
+    public void findLocation() { }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

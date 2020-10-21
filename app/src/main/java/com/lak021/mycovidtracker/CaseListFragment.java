@@ -48,7 +48,7 @@ public class CaseListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_case_list, container, false);
         mCrimeRecyclerView = (RecyclerView) view
-                .findViewById(R.id.crime_recycler_view);
+                .findViewById(R.id.case_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         if (savedInstanceState != null) {
             mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
